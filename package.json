@@ -1,7 +1,7 @@
 {
   "name": "generator-craft-element-type",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "version": "1.0.0",
+  "description": "Yeoman generator for Craft Element Type plugins",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "boboldehampsink/generator-craft-element-type",
