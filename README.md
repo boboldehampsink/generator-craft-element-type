@@ -32,7 +32,7 @@ npm install -g generator-craft-element-type
 Finally, initiate the generator:
 
 ```bash
-yo Craft Element Type
+yo craft-element-type
 ```
 
 ### Getting To Know Yeoman
