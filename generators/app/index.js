@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var _ = require('underscore.string');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -9,15 +10,45 @@ module.exports = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the wonderful ' + chalk.red('CraftElementType') + ' generator!'
+      'Welcome to the wonderful ' + chalk.red('Craft Element Type') + ' generator!'
     ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    var handleDefault = function(answers) {
+      return _.classify(answers.pluginName);
+    };
+
+    var prompts = [
+      {
+        type: 'input',
+        name: 'pluginName',
+        message: 'Plugin Name',
+        default: 'My Plugin'
+      },
+      {
+        type: 'input',
+        name: 'pluginHandle',
+        message: 'Plugin Handle (e.g. MyPlugin)',
+        default: handleDefault.bind(this)
+      },
+      {
+        type: 'input',
+        name: 'pluginVersion',
+        message: 'Plugin Version',
+        default: '1.0.0'
+      },
+      {
+        type: 'input',
+        name: 'developerName',
+        message: 'Plugin Developer Name',
+        store: true,
+      },
+      {
+        type: 'input',
+        name: 'developerUrl',
+        message: 'Plugin Developer URL',
+        store: true,
+      }
+    ];
 
     this.prompt(prompts, function (props) {
       this.props = props;
