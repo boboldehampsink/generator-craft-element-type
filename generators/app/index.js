@@ -47,6 +47,24 @@ module.exports = yeoman.generators.Base.extend({
         name: 'developerUrl',
         message: 'Plugin Developer URL',
         store: true,
+      },
+      {
+        type: 'input',
+        name: 'sectionName',
+        message: 'Element Type Section Name',
+        default: 'Calendars',
+      },
+      {
+        type: 'input',
+        name: 'modelName',
+        message: 'Element Type Model Name',
+        default: 'Event',
+      },
+      {
+        type: 'input',
+        name: 'destination',
+        message: 'Plugin Destination',
+        default: 'craft/plugins',
       }
     ];
 
