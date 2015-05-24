@@ -51,7 +51,13 @@ module.exports = yeoman.generators.Base.extend({
       {
         type: 'input',
         name: 'sectionName',
-        message: 'Element Type Section Name',
+        message: 'Element Type Section Name (Singular)',
+        default: 'Calendar',
+      },
+      {
+        type: 'input',
+        name: 'sectionsName',
+        message: 'Element Type Section Name (Plural)',
         default: 'Calendars',
       },
       {
