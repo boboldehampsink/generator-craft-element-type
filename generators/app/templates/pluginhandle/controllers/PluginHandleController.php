@@ -12,61 +12,61 @@ namespace Craft;
  * @link      <%= developerUrl %>
  * @since     <%= pluginVersion %>
  */
-class EventsController extends BaseController
+class <%= pluginHandle %>Controller extends BaseController
 {
     /**
-     * Event index.
+     * <%= modelName %> index.
      */
-    public function actionEventIndex()
+    public function action<%= modelName %>Index()
     {
-        $variables['calendars'] = craft()->events_calendars->getAllCalendars();
+        $variables['calendars'] = craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>();
 
-        $this->renderTemplate('events/_index', $variables);
+        $this->renderTemplate('<%= pluginHandle.toLowerCase() %>/_index', $variables);
     }
 
     /**
-     * Edit an event.
+     * Edit an <%= modelName.toLowerCase() %>.
      *
      * @param array $variables
      *
      * @throws HttpException
      */
-    public function actionEditEvent(array $variables = array())
+    public function actionEdit<%= modelName %>(array $variables = array())
     {
-        if (!empty($variables['calendarHandle'])) {
-            $variables['calendar'] = craft()->events_calendars->getCalendarByHandle($variables['calendarHandle']);
-        } elseif (!empty($variables['calendarId'])) {
-            $variables['calendar'] = craft()->events_calendars->getCalendarById($variables['calendarId']);
+        if (!empty($variables['<%= sectionName.toLowerCase() %>Handle'])) {
+            $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ByHandle($variables['<%= sectionName.toLowerCase() %>Handle']);
+        } elseif (!empty($variables['<%= sectionName.toLowerCase() %>Id'])) {
+            $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ById($variables['<%= sectionName.toLowerCase() %>Id']);
         }
 
-        if (empty($variables['calendar'])) {
+        if (empty($variables['<%= sectionName.toLowerCase() %>'])) {
             throw new HttpException(404);
         }
 
-        // Now let's set up the actual event
-        if (empty($variables['event'])) {
-            if (!empty($variables['eventId'])) {
-                $variables['event'] = craft()->events->getEventById($variables['eventId']);
+        // Now let's set up the actual <%= modelName.toLowerCase() %>
+        if (empty($variables['<%= modelName.toLowerCase() %>'])) {
+            if (!empty($variables['<%= modelName.toLowerCase() %>Id'])) {
+                $variables['<%= modelName.toLowerCase() %>'] = craft()-><%= pluginHandle.toLowerCase() %>->get<%= modelName %>ById($variables['<%= modelName.toLowerCase() %>Id']);
 
-                if (!$variables['event']) {
+                if (!$variables['<%= modelName.toLowerCase() %>']) {
                     throw new HttpException(404);
                 }
             } else {
-                $variables['event'] = new Events_EventModel();
-                $variables['event']->calendarId = $variables['calendar']->id;
+                $variables['<%= modelName.toLowerCase() %>'] = new <%= pluginHandle %>_<%= modelName %>Model();
+                $variables['<%= modelName.toLowerCase() %>']-><%= sectionName.toLowerCase() %>Id = $variables['<%= sectionName.toLowerCase() %>']->id;
             }
         }
 
         // Tabs
         $variables['tabs'] = array();
 
-        foreach ($variables['calendar']->getFieldLayout()->getTabs() as $index => $tab) {
+        foreach ($variables['<%= sectionName.toLowerCase() %>']->getFieldLayout()->getTabs() as $index => $tab) {
             // Do any of the fields on this tab have errors?
             $hasErrors = false;
 
-            if ($variables['event']->hasErrors()) {
+            if ($variables['<%= modelName.toLowerCase() %>']->hasErrors()) {
                 foreach ($tab->getFields() as $field) {
-                    if ($variables['event']->getErrors($field->getField()->handle)) {
+                    if ($variables['<%= modelName.toLowerCase() %>']->getErrors($field->getField()->handle)) {
                         $hasErrors = true;
                         break;
                     }
@@ -80,79 +80,79 @@ class EventsController extends BaseController
             );
         }
 
-        if (!$variables['event']->id) {
-            $variables['title'] = Craft::t('Create a new event');
+        if (!$variables['<%= modelName.toLowerCase() %>']->id) {
+            $variables['title'] = Craft::t('Create a new <%= modelName.toLowerCase() %>');
         } else {
-            $variables['title'] = $variables['event']->title;
+            $variables['title'] = $variables['<%= modelName.toLowerCase() %>']->title;
         }
 
         // Breadcrumbs
         $variables['crumbs'] = array(
-            array('label' => Craft::t('Events'), 'url' => UrlHelper::getUrl('events')),
-            array('label' => $variables['calendar']->name, 'url' => UrlHelper::getUrl('events')),
+            array('label' => Craft::t('<%= pluginName %>'), 'url' => UrlHelper::getUrl('<%= pluginHandle.toLowerCase() %>')),
+            array('label' => $variables['<%= sectionName.toLowerCase() %>']->name, 'url' => UrlHelper::getUrl('<%= pluginHandle.toLowerCase() %>')),
         );
 
         // Set the "Continue Editing" URL
-        $variables['continueEditingUrl'] = 'events/'.$variables['calendar']->handle.'/{id}';
+        $variables['continueEditingUrl'] = '<%= pluginHandle.toLowerCase() %>/'.$variables['<%= sectionName.toLowerCase() %>']->handle.'/{id}';
 
         // Render the template!
-        $this->renderTemplate('events/_edit', $variables);
+        $this->renderTemplate('<%= pluginHandle.toLowerCase() %>/_edit', $variables);
     }
 
     /**
-     * Saves an event.
+     * Saves an <%= modelName.toLowerCase() %>.
      */
-    public function actionSaveEvent()
+    public function actionSave<%= modelName %>()
     {
         $this->requirePostRequest();
 
-        $eventId = craft()->request->getPost('eventId');
+        $<%= modelName.toLowerCase() %>Id = craft()->request->getPost('<%= modelName.toLowerCase() %>Id');
 
-        if ($eventId) {
-            $event = craft()->events->getEventById($eventId);
+        if ($<%= modelName.toLowerCase() %>Id) {
+            $<%= modelName.toLowerCase() %> = craft()-><%= pluginHandle.toLowerCase() %>->get<%= modelName %>ById($<%= modelName.toLowerCase() %>Id);
 
-            if (!$event) {
-                throw new Exception(Craft::t('No event exists with the ID “{id}”', array('id' => $eventId)));
+            if (!$<%= modelName.toLowerCase() %>) {
+                throw new Exception(Craft::t('No <%= modelName.toLowerCase() %> exists with the ID “{id}”', array('id' => $<%= modelName.toLowerCase() %>Id)));
             }
         } else {
-            $event = new Events_EventModel();
+            $<%= modelName.toLowerCase() %> = new <%= pluginHandle %>_<%= modelName %>Model();
         }
 
         // Set the event attributes, defaulting to the existing values for whatever is missing from the post data
-        $event->calendarId = craft()->request->getPost('calendarId', $event->calendarId);
-        $event->startDate  = (($startDate = craft()->request->getPost('startDate')) ? DateTime::createFromString($startDate, craft()->timezone) : null);
-        $event->endDate    = (($endDate   = craft()->request->getPost('endDate'))   ? DateTime::createFromString($endDate,   craft()->timezone) : null);
+        $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase() %>Id = craft()->request->getPost('<%= sectionName.toLowerCase() %>Id', $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase() %>Id);
+        $<%= modelName.toLowerCase() %>->startDate  = (($startDate = craft()->request->getPost('startDate')) ? DateTime::createFromString($startDate, craft()->timezone) : null);
+        $<%= modelName.toLowerCase() %>->endDate    = (($endDate   = craft()->request->getPost('endDate'))   ? DateTime::createFromString($endDate,   craft()->timezone) : null);
 
-        $event->getContent()->title = craft()->request->getPost('title', $event->title);
-        $event->setContentFromPost('fields');
+        $<%= modelName.toLowerCase() %>->getContent()->title = craft()->request->getPost('title', $<%= modelName.toLowerCase() %>->title);
+        $<%= modelName.toLowerCase() %>->setContentFromPost('fields');
 
-        if (craft()->events->saveEvent($event)) {
-            craft()->userSession->setNotice(Craft::t('Event saved.'));
-            $this->redirectToPostedUrl($event);
+        if (craft()->events->saveEvent($<%= modelName.toLowerCase() %>)) {
+            craft()->userSession->setNotice(Craft::t('<%= modelName %> saved.'));
+            $this->redirectToPostedUrl($<%= modelName.toLowerCase() %>);
         } else {
-            craft()->userSession->setError(Craft::t('Couldn’t save event.'));
+            craft()->userSession->setError(Craft::t('Couldn’t save <%= modelName.toLowerCase() %>.'));
 
             // Send the event back to the template
             craft()->urlManager->setRouteVariables(array(
-                'event' => $event,
+                '<%= modelName.toLowerCase() %>' => $<%= modelName.toLowerCase() %>,
             ));
         }
     }
 
     /**
-     * Deletes an event.
+     * Deletes an <%= modelName.toLowerCase() %>.
      */
-    public function actionDeleteEvent()
+    public function actionDelete<%= modelName %>()
     {
         $this->requirePostRequest();
 
-        $eventId = craft()->request->getRequiredPost('eventId');
+        $<%= modelName.toLowerCase() %>Id = craft()->request->getRequiredPost('<%= modelName.toLowerCase() %>Id');
 
-        if (craft()->elements->deleteElementById($eventId)) {
-            craft()->userSession->setNotice(Craft::t('Event deleted.'));
+        if (craft()->elements->deleteElementById($<%= modelName.toLowerCase() %>Id)) {
+            craft()->userSession->setNotice(Craft::t('<%= modelName %> deleted.'));
             $this->redirectToPostedUrl();
         } else {
-            craft()->userSession->setError(Craft::t('Couldn’t delete event.'));
+            craft()->userSession->setError(Craft::t('Couldn’t delete <%= modelName.toLowerCase() %>.'));
         }
     }
 }
