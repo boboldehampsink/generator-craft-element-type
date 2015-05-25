@@ -3,14 +3,21 @@
 namespace Craft;
 
 /**
- * Entries field type.
+ * <%= pluginName %> - <%= modelName %> Element Type.
+ *
+ * @author    <%= developerName %>
+ * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>
+ * @license   <%= license %>
+ *
+ * @link      <%= developerUrl %>
+ * @since     <%= pluginVersion %>
  */
-class EventsFieldType extends BaseElementFieldType
+class <%= pluginHandle %>FieldType extends BaseElementFieldType
 {
     /**
      * @var string The element type this field deals with.
      */
-    protected $elementType = 'Events_Event';
+    protected $elementType = '<%= pluginHandle %>_<%= modelName %>';
 
     /**
      * Returns the label for the "Add" button.
@@ -19,6 +26,6 @@ class EventsFieldType extends BaseElementFieldType
      */
     protected function getAddButtonLabel()
     {
-        return Craft::t('Add an event');
+        return Craft::t('Add an <%= modelName.toLowerCase() %>');
     }
 }
