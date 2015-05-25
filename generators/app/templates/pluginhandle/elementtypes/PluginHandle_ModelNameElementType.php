@@ -21,7 +21,7 @@ class <%= pluginHandle %>_<%= modelName %>ElementType extends BaseElementType
      */
     public function getName()
     {
-        return Craft::t('<% pluginName %>');
+        return Craft::t('<%= pluginName %>');
     }
 
     /**
@@ -100,7 +100,6 @@ class <%= pluginHandle %>_<%= modelName %>ElementType extends BaseElementType
         switch ($attribute) {
             case 'startDate':
             case 'endDate':
-            {
                 $date = $element->$attribute;
 
                 if ($date) {
@@ -108,12 +107,11 @@ class <%= pluginHandle %>_<%= modelName %>ElementType extends BaseElementType
                 } else {
                     return '';
                 }
-            }
+                break;
 
             default:
-            {
                 return parent::getTableAttributeHtml($element, $attribute);
-            }
+                break;
         }
     }
 
@@ -174,7 +172,7 @@ class <%= pluginHandle %>_<%= modelName %>ElementType extends BaseElementType
      */
     public function populateElementModel($row)
     {
-        return Events_EventModel::populateModel($row);
+        return <%= pluginHandle %>_<%= modelName %>Model::populateModel($row);
     }
 
     /**
@@ -187,7 +185,7 @@ class <%= pluginHandle %>_<%= modelName %>ElementType extends BaseElementType
     public function getEditorHtml(BaseElementModel $element)
     {
         // Start/End Dates
-        $html = craft()->templates->render('events/_edit', array(
+        $html = craft()->templates->render('<%= pluginHandle.toLowerCase() %>/_edit', array(
             'element' => $element,
         ));
 

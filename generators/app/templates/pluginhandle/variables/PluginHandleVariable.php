@@ -20,6 +20,6 @@ class <%= pluginHandle %>Variable
      */
     public function <%= modelsName.toLowerCase() %>()
     {
-        return craft()->elements->getCriteria('<%= pluginHandle %>_<% modelName %>');
+        return craft()->elements->getCriteria('<%= pluginHandle %>_<%= modelName %>');
     }
 }
