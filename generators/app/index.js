@@ -63,14 +63,27 @@ module.exports = yeoman.generators.Base.extend({
       {
         type: 'input',
         name: 'modelName',
-        message: 'Element Type Model Name',
+        message: 'Element Type Model Name (Singular)',
         default: 'Event',
+      },
+      {
+        type: 'input',
+        name: 'modelsName',
+        message: 'Element Type Model Name (Plural)',
+        default: 'Events',
       },
       {
         type: 'input',
         name: 'destination',
         message: 'Plugin Destination',
         default: 'craft/plugins',
+      }
+      ,
+      {
+        type: 'input',
+        name: 'license',
+        message: 'Plugin License',
+        default: 'MIT',
       }
     ];
 
