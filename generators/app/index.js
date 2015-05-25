@@ -150,13 +150,50 @@ module.exports = yeoman.generators.Base.extend({
 
   install: function () {
     var pluginDest = path.join(this.props.destination, this.props.pluginHandle.toLowerCase());
+    var generator = this;
+
+    var results = renamer.replace({
+      regex: true,
+      find: '^PluginHandle_ModelName(.*)',
+      replace: this.props.pluginHandle + '_' + this.props.modelName + '$1',
+      files: renamer.expand(path.join(pluginDest, '**', '*')).files,
+    });
+    renamer.rename(results).list.forEach(function(file) {
+      if (file.renamed) {
+        generator.log(chalk.green('rename ') + file.before + ' => ' + file.after);
+      }
+    });
+
+    var results = renamer.replace({
+      regex: true,
+      find: '^PluginHandle_SectionName(.*)',
+      replace: this.props.pluginHandle + '_' + this.props.sectionName + '$1',
+      files: renamer.expand(path.join(pluginDest, '**', '*')).files,
+    });
+    renamer.rename(results).list.forEach(function(file) {
+      if (file.renamed) {
+        generator.log(chalk.green('rename ') + file.before + ' => ' + file.after);
+      }
+    });
+
+    var results = renamer.replace({
+      regex: true,
+      find: '^PluginHandle_SectionsName(.*)',
+      replace: this.props.pluginHandle + '_' + this.props.sectionsName + '$1',
+      files: renamer.expand(path.join(pluginDest, '**', '*')).files,
+    });
+    renamer.rename(results).list.forEach(function(file) {
+      if (file.renamed) {
+        generator.log(chalk.green('rename ') + file.before + ' => ' + file.after);
+      }
+    });
+
     var results = renamer.replace({
       regex: true,
       find: '^PluginHandle(.*)',
       replace: this.props.pluginHandle + '$1',
       files: renamer.expand(path.join(pluginDest, '**', '*')).files,
     });
-    var generator = this;
     renamer.rename(results).list.forEach(function(file) {
       if (file.renamed) {
         generator.log(chalk.green('rename ') + file.before + ' => ' + file.after);
