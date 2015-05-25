@@ -2,6 +2,8 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var path = require('path');
+var renamer = require('renamer');
 var _ = require('underscore.string');
 
 module.exports = yeoman.generators.Base.extend({
@@ -77,8 +79,7 @@ module.exports = yeoman.generators.Base.extend({
         name: 'destination',
         message: 'Plugin Destination',
         default: 'craft/plugins',
-      }
-      ,
+      },
       {
         type: 'input',
         name: 'license',
@@ -97,11 +98,29 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     plugin: function() {
-      this.log('Writing plugin files');
+      var pluginDest = path.join(this.props.destination, this.props.pluginHandle.toLowerCase());
+
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/PluginHandlePlugin.php'),
+        this.destinationPath(path.join(pluginDest, 'PluginHandlePlugin.php')),
+        this.props
+      );
     }
   },
 
   install: function () {
-
+    var pluginDest = path.join(this.props.destination, this.props.pluginHandle.toLowerCase());
+    var results = renamer.replace({
+      regex: true,
+      find: '^PluginHandle(.*)',
+      replace: this.props.pluginHandle + '$1',
+      files: renamer.expand(path.join(pluginDest, '**', '*')).files,
+    });
+    var generator = this;
+    renamer.rename(results).list.forEach(function(file) {
+      if (file.renamed) {
+        generator.log(chalk.green('rename ') + file.before + ' => ' + file.after);
+      }
+    });
   }
 });
