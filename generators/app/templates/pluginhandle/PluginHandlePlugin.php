@@ -21,7 +21,7 @@ class <%= pluginHandle %>Plugin extends BasePlugin
      */
     public function getName()
     {
-        return '<%= pluginName %>';
+        return Craft::t('<%= pluginName %>');
     }
 
     /**

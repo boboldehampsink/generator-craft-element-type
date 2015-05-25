@@ -105,6 +105,46 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(path.join(pluginDest, 'PluginHandlePlugin.php')),
         this.props
       );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/controllers/*'),
+        this.destinationPath(path.join(pluginDest, 'controllers')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/elementtypes/*'),
+        this.destinationPath(path.join(pluginDest, 'elementtypes')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/fieldtypes/*'),
+        this.destinationPath(path.join(pluginDest, 'fieldtypes')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/models/*'),
+        this.destinationPath(path.join(pluginDest, 'models')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/records/*'),
+        this.destinationPath(path.join(pluginDest, 'records')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/services/*'),
+        this.destinationPath(path.join(pluginDest, 'services')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/templates/*'),
+        this.destinationPath(path.join(pluginDest, 'templates')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/variables/*'),
+        this.destinationPath(path.join(pluginDest, 'variables')),
+        this.props
+      );
     }
   },
 
