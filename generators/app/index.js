@@ -102,7 +102,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('pluginhandle/PluginHandlePlugin.php'),
-        this.destinationPath(path.join(pluginDest, 'PluginHandlePlugin.php')),
+        this.destinationPath(path.join(pluginDest, this.props.pluginHandle + 'Plugin.php')),
         this.props
       );
       this.fs.copyTpl(
@@ -138,6 +138,11 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('pluginhandle/templates/*'),
         this.destinationPath(path.join(pluginDest, 'templates')),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath('pluginhandle/templates/sectionsname/*'),
+        this.destinationPath(path.join(pluginDest, 'templates/' + this.props.sectionsName.toLowerCase())),
         this.props
       );
       this.fs.copyTpl(
