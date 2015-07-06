@@ -23,7 +23,7 @@ class <%= pluginHandle %>Service extends BaseApplicationComponent
      */
     public function get<%= modelName %>ById($<%= modelName.toLowerCase() %>Id)
     {
-        return craft()->elements->getElementById($<%= modelName.toLowerCase() %>Id, '<%= pluginHandle %>_<% modelName %>');
+        return craft()->elements->getElementById($<%= modelName.toLowerCase() %>Id, '<%= pluginHandle %>_<%= modelName %>');
     }
 
     /**

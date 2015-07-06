@@ -31,7 +31,7 @@ class <%= pluginHandle %>_<%= sectionsName %>Service extends BaseApplicationComp
             } else {
                 $this->_all<%= sectionName %>Ids = craft()->db->createCommand()
                     ->select('id')
-                    ->from('<% modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>')
+                    ->from('<%= modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>')
                     ->queryColumn();
             }
         }
@@ -214,7 +214,7 @@ class <%= pluginHandle %>_<%= sectionsName %>Service extends BaseApplicationComp
             // Delete the field layout
             $fieldLayoutId = craft()->db->createCommand()
                 ->select('fieldLayoutId')
-                ->from('<% modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>')
+                ->from('<%= modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>')
                 ->where(array('id' => $<%= sectionName.toLowerCase() %>Id))
                 ->queryScalar();
 

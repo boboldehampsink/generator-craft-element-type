@@ -15,7 +15,7 @@ namespace Craft;
 class <%= pluginHandle %>_<%= sectionName %>Model extends BaseElementModel
 {
     /**
-     * Use the translated <% sectionName.toLowerCase() %> name as the string representation.
+     * Use the translated <%= sectionName.toLowerCase() %> name as the string representation.
      *
      * @return string
      */

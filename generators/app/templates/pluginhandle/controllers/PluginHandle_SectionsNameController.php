@@ -49,14 +49,14 @@ class <%= pluginHandle %>_<%= sectionsName %>Controller extends BaseController
         } else {
             if (empty($variables['<%= sectionName.toLowerCase() %>'])) {
                 $variables['<%= sectionName.toLowerCase() %>'] = new <%= pluginHandle %>_<%= sectionName %>Model();
-                $variables['brandNew<% sectionName %>'] = true;
+                $variables['brandNew<%= sectionName %>'] = true;
             }
 
             $variables['title'] = Craft::t('Create a new <%= sectionName.toLowerCase() %>');
         }
 
         $variables['crumbs'] = array(
-            array('label' => Craft::t('<%= pluginName %>'), 'url' => UrlHelper::getUrl('<% pluginHandle.toLowerCase() %>')),
+            array('label' => Craft::t('<%= pluginName %>'), 'url' => UrlHelper::getUrl('<%= pluginHandle.toLowerCase() %>')),
             array('label' => Craft::t('<%= sectionsName %>'), 'url' => UrlHelper::getUrl('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>')),
         );
 
@@ -79,7 +79,7 @@ class <%= pluginHandle %>_<%= sectionsName %>Controller extends BaseController
 
         // Set the field layout
         $fieldLayout = craft()->fields->assembleLayoutFromPost();
-        $fieldLayout->type = '<% pluginHandle %>_<% modelName %>';
+        $fieldLayout->type = '<%= pluginHandle %>_<%= modelName %>';
         $<%= sectionName.toLowerCase() %>->setFieldLayout($fieldLayout);
 
         // Save it

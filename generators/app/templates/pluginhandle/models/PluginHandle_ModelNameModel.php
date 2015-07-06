@@ -69,7 +69,7 @@ class <%= pluginHandle %>_<%= modelName %>Model extends BaseElementModel
     /**
      * Returns the <%= modelName.toLowerCase() %>'s <%= sectionName.toLowerCase() %>.
      *
-     * @return <% pluginHandle %>_<%= sectionName %>Model|null
+     * @return <%= pluginHandle %>_<%= sectionName %>Model|null
      */
     public function get<%= sectionName %>()
     {
