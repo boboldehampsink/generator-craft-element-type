@@ -19,7 +19,7 @@ class <%= pluginHandle %>_<%= sectionsName %>Controller extends BaseController
      */
     public function action<%= sectionName %>Index()
     {
-        $variables['calendars'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>();
+        $variables['<%= sectionsName.toLowerCase() %>'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>();
 
         $this->renderTemplate('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>', $variables);
     }
@@ -90,7 +90,7 @@ class <%= pluginHandle %>_<%= sectionsName %>Controller extends BaseController
             craft()->userSession->setError(Craft::t('Couldn’t save <%= sectionName.toLowerCase() %>.'));
         }
 
-        // Send the calendar back to the template
+        // Send the <%= sectionName.toLowerCase() %> back to the template
         craft()->urlManager->setRouteVariables(array(
             '<%= sectionName.toLowerCase() %>' => $<%= sectionName.toLowerCase() %>,
         ));
