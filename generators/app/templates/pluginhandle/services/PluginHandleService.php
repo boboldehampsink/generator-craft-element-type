@@ -41,7 +41,7 @@ class <%= pluginHandle %>Service extends BaseApplicationComponent
 
         // <%= modelName%> data
         if (!$isNew<%= modelName %>) {
-            $<%= modelName.toLowerCase() %>Record = <%= pluginHandel %>_<%= modelName %>Record::model()->findById($<%= modelName.toLowerCase() %>->id);
+            $<%= modelName.toLowerCase() %>Record = <%= pluginHandle %>_<%= modelName %>Record::model()->findById($<%= modelName.toLowerCase() %>->id);
 
             if (!$<%= modelName.toLowerCase() %>Record) {
                 throw new Exception(Craft::t('No <%= modelName.toLowerCase() %> exists with the ID “{id}”', array('id' => $<%= modelName.toLowerCase() %>->id)));

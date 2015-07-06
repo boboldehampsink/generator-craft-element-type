@@ -84,7 +84,7 @@ class <%= pluginHandle %>_<%= sectionsName %>Service extends BaseApplicationComp
      *
      * @param $<%= sectionName.toLowerCase() %>Id
      *
-     * @return <%= pluginHandel %>_<%= sectionName %>Model|null
+     * @return <%= pluginHandle %>_<%= sectionName %>Model|null
      */
     public function get<%= sectionName %>ById($<%= sectionName.toLowerCase() %>Id)
     {
