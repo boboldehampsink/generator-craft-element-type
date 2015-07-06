@@ -21,6 +21,9 @@ yo craft-element-type
 ```
 
 ## Changelog
+##### 1.0.6
+- Fixed casing of a variable
+
 ##### 1.0.5
 - Fixed some variables not generating output
 
