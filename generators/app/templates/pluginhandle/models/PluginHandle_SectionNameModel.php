@@ -3,12 +3,19 @@
 namespace Craft;
 
 /**
- * Events - Calendar model.
+ * <%= pluginName %> - <%= sectionName %> Model.
+ *
+ * @author    <%= developerName %>
+ * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>
+ * @license   <%= license %>
+ *
+ * @link      <%= developerUrl %>
+ * @since     <%= pluginVersion %>
  */
-class Events_CalendarModel extends BaseModel
+class <%= pluginHandle %>_<%= sectionName %>Model extends BaseElementModel
 {
     /**
-     * Use the translated calendar name as the string representation.
+     * Use the translated <% sectionName.toLowerCase() %> name as the string representation.
      *
      * @return string
      */
@@ -36,7 +43,7 @@ class Events_CalendarModel extends BaseModel
     public function behaviors()
     {
         return array(
-            'fieldLayout' => new FieldLayoutBehavior('Events_Event'),
+            'fieldLayout' => new FieldLayoutBehavior('<%= pluginHandle %>_<%= modelName %>'),
         );
     }
 }

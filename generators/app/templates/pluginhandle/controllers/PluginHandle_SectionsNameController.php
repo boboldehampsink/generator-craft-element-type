@@ -12,101 +12,101 @@ namespace Craft;
  * @link      <%= developerUrl %>
  * @since     <%= pluginVersion %>
  */
-class Events_CalendarsController extends BaseController
+class <%= pluginHandle %>_<%= sectionsName %>Controller extends BaseController
 {
     /**
-     * Calendar index.
+     * <%= sectionsName %> index.
      */
-    public function actionCalendarIndex()
+    public function action<%= sectionName %>Index()
     {
-        $variables['calendars'] = craft()->events_calendars->getAllCalendars();
+        $variables['calendars'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>();
 
-        $this->renderTemplate('events/calendars', $variables);
+        $this->renderTemplate('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>', $variables);
     }
 
     /**
-     * Edit a calendar.
+     * Edit a <%= sectionName.toLowerCase() %>.
      *
      * @param array $variables
      *
      * @throws HttpException
      * @throws Exception
      */
-    public function actionEditCalendar(array $variables = array())
+    public function actionEdit<%= sectionName %>(array $variables = array())
     {
-        $variables['brandNewCalendar'] = false;
+        $variables['brandNew<%= sectionName %>'] = false;
 
-        if (!empty($variables['calendarId'])) {
-            if (empty($variables['calendar'])) {
-                $variables['calendar'] = craft()->events_calendars->getCalendarById($variables['calendarId']);
+        if (!empty($variables['<%= sectionName.toLowerCase() %>Id'])) {
+            if (empty($variables['<%= sectionName.toLowerCase() %>'])) {
+                $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ById($variables['<%= sectionName.toLowerCase() %>Id']);
 
-                if (!$variables['calendar']) {
+                if (!$variables['<%= sectionName.toLowerCase() %>']) {
                     throw new HttpException(404);
                 }
             }
 
-            $variables['title'] = $variables['calendar']->name;
+            $variables['title'] = $variables['<%= sectionName.toLowerCase() %>']->name;
         } else {
-            if (empty($variables['calendar'])) {
-                $variables['calendar'] = new Events_CalendarModel();
-                $variables['brandNewCalendar'] = true;
+            if (empty($variables['<%= sectionName.toLowerCase() %>'])) {
+                $variables['<%= sectionName.toLowerCase() %>'] = new <%= pluginHandle %>_<%= sectionName %>Model();
+                $variables['brandNew<% sectionName %>'] = true;
             }
 
-            $variables['title'] = Craft::t('Create a new calendar');
+            $variables['title'] = Craft::t('Create a new <%= sectionName.toLowerCase() %>');
         }
 
         $variables['crumbs'] = array(
-            array('label' => Craft::t('Events'), 'url' => UrlHelper::getUrl('events')),
-            array('label' => Craft::t('Calendars'), 'url' => UrlHelper::getUrl('events/calendars')),
+            array('label' => Craft::t('<%= pluginName %>'), 'url' => UrlHelper::getUrl('<% pluginHandle.toLowerCase() %>')),
+            array('label' => Craft::t('<%= sectionsName %>'), 'url' => UrlHelper::getUrl('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>')),
         );
 
-        $this->renderTemplate('events/calendars/_edit', $variables);
+        $this->renderTemplate('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/_edit', $variables);
     }
 
     /**
-     * Saves a calendar.
+     * Saves a <%= sectionName.toLowerCase() %>.
      */
-    public function actionSaveCalendar()
+    public function actionSave<%= sectionName %>()
     {
         $this->requirePostRequest();
 
-        $calendar = new Events_CalendarModel();
+        $<%= sectionName.toLowerCase() %> = new <%= pluginHandle %>_<%= sectionName %>Model();
 
         // Shared attributes
-        $calendar->id         = craft()->request->getPost('calendarId');
-        $calendar->name       = craft()->request->getPost('name');
-        $calendar->handle     = craft()->request->getPost('handle');
+        $<%= sectionName.toLowerCase() %>->id         = craft()->request->getPost('<%= sectionName.toLowerCase() %>Id');
+        $<%= sectionName.toLowerCase() %>->name       = craft()->request->getPost('name');
+        $<%= sectionName.toLowerCase() %>->handle     = craft()->request->getPost('handle');
 
         // Set the field layout
         $fieldLayout = craft()->fields->assembleLayoutFromPost();
-        $fieldLayout->type = ElementType::Asset;
-        $calendar->setFieldLayout($fieldLayout);
+        $fieldLayout->type = '<% pluginHandle %>_<% modelName %>';
+        $<%= sectionName.toLowerCase() %>->setFieldLayout($fieldLayout);
 
         // Save it
-        if (craft()->events_calendars->saveCalendar($calendar)) {
-            craft()->userSession->setNotice(Craft::t('Calendar saved.'));
-            $this->redirectToPostedUrl($calendar);
+        if (craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->save<%= sectionName %>($<%= sectionName.toLowerCase() %>)) {
+            craft()->userSession->setNotice(Craft::t('<%= sectionName %> saved.'));
+            $this->redirectToPostedUrl($<%= sectionName.toLowerCase() %>);
         } else {
-            craft()->userSession->setError(Craft::t('Couldn’t save calendar.'));
+            craft()->userSession->setError(Craft::t('Couldn’t save <%= sectionName.toLowerCase() %>.'));
         }
 
         // Send the calendar back to the template
         craft()->urlManager->setRouteVariables(array(
-            'calendar' => $calendar,
+            '<%= sectionName.toLowerCase() %>' => $<%= sectionName.toLowerCase() %>,
         ));
     }
 
     /**
-     * Deletes a calendar.
+     * Deletes a <%= sectionName.toLowerCase() %>.
      */
-    public function actionDeleteCalendar()
+    public function actionDelete<%= sectionName %>()
     {
         $this->requirePostRequest();
         $this->requireAjaxRequest();
 
-        $calendarId = craft()->request->getRequiredPost('id');
+        $<%= sectionName.toLowerCase() %>Id = craft()->request->getRequiredPost('id');
 
-        craft()->events_calendars->deleteCalendarById($calendarId);
+        craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->delete<%= sectionName %>ById($<%= sectionName.toLowerCase() %>Id);
         $this->returnJson(array('success' => true));
     }
 }

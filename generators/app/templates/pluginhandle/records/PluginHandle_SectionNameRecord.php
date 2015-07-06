@@ -3,16 +3,23 @@
 namespace Craft;
 
 /**
- * Events - Calendar record.
+ * <%= pluginName %> - <%= sectionName %> Record.
+ *
+ * @author    <%= developerName %>
+ * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>
+ * @license   <%= license %>
+ *
+ * @link      <%= developerUrl %>
+ * @since     <%= pluginVersion %>
  */
-class Events_CalendarRecord extends BaseRecord
+class <%= pluginHandle %>_<%= sectionName %>Record extends BaseRecord
 {
     /**
      * @return string
      */
     public function getTableName()
     {
-        return 'events_calendars';
+        return '<%= modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>';
     }
 
     /**
@@ -34,7 +41,7 @@ class Events_CalendarRecord extends BaseRecord
     {
         return array(
             'fieldLayout' => array(static::BELONGS_TO, 'FieldLayoutRecord', 'onDelete' => static::SET_NULL),
-            'events'      => array(static::HAS_MANY, 'Events_EventRecord', 'eventId'),
+            '<%= modelsName.toLowerCase() %>'      => array(static::HAS_MANY, '<%= pluginHandle %>_<%= modelName %>Record', '<%= modelName.toLowerCase() %>Id'),
         );
     }
 

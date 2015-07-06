@@ -3,11 +3,18 @@
 namespace Craft;
 
 /**
- * Events - Event model.
+ * <%= pluginName %> - <%= modelName %> Model.
+ *
+ * @author    <%= developerName %>
+ * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>
+ * @license   <%= license %>
+ *
+ * @link      <%= developerUrl %>
+ * @since     <%= pluginVersion %>
  */
-class Events_EventModel extends BaseElementModel
+class <%= pluginHandle %>_<%= modelName %>Model extends BaseElementModel
 {
-    protected $elementType = 'Events_Event';
+    protected $elementType = '<%= pluginHandle %>_<%= modelName %>';
 
     /**
      * @return array
@@ -15,7 +22,7 @@ class Events_EventModel extends BaseElementModel
     protected function defineAttributes()
     {
         return array_merge(parent::defineAttributes(), array(
-            'calendarId' => AttributeType::Number,
+            '<%= sectionName.toLowerCase() %>Id' => AttributeType::Number,
             'startDate'  => AttributeType::DateTime,
             'endDate'    => AttributeType::DateTime,
         ));
@@ -38,10 +45,10 @@ class Events_EventModel extends BaseElementModel
      */
     public function getCpEditUrl()
     {
-        $calendar = $this->getCalendar();
+        $<%= sectionName.toLowerCase() %> = $this->get<%= sectionName %>();
 
-        if ($calendar) {
-            return UrlHelper::getCpUrl('events/'.$calendar->handle.'/'.$this->id);
+        if ($<%= sectionName.toLowerCase() %>) {
+            return UrlHelper::getCpUrl('<%= pluginHandle.toLowerCase() %>/'.$<%= sectionName.toLowerCase() %>->handle.'/'.$this->id);
         }
     }
 
@@ -52,22 +59,22 @@ class Events_EventModel extends BaseElementModel
      */
     public function getFieldLayout()
     {
-        $calendar = $this->getCalendar();
+        $<%= sectionName.toLowerCase() %> = $this->get<%= sectionName %>();
 
-        if ($calendar) {
-            return $calendar->getFieldLayout();
+        if ($<%= sectionName.toLowerCase() %>) {
+            return $<%= sectionName.toLowerCase() %>->getFieldLayout();
         }
     }
 
     /**
-     * Returns the event's calendar.
+     * Returns the <%= modelName.toLowerCase() %>'s <%= sectionName.toLowerCase() %>.
      *
-     * @return Events_CalendarModel|null
+     * @return <% pluginHandle %>_<%= sectionName %>Model|null
      */
-    public function getCalendar()
+    public function get<%= sectionName %>()
     {
-        if ($this->calendarId) {
-            return craft()->events_calendars->getCalendarById($this->calendarId);
+        if ($this-><%= sectionName.toLowerCase() %>Id) {
+            return craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ById($this-><%= sectionName.toLowerCase() %>Id);
         }
     }
 }
