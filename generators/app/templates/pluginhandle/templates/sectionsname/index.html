@@ -1,5 +1,5 @@
 {% extends "_layouts/cp" %}
-{% set title = "Calendars"|t %}
+{% set title = "<%= sectionsName %>"|t %}
 
 {% set tabs = {
 	<%= modelsName.toLowerCase() %>:    { label: "<%= modelsName %>"|t, url: url('<%= pluginHandle.toLowerCase() %>') },
