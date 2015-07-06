@@ -50,7 +50,7 @@ class <%= pluginHandle %>Service extends BaseApplicationComponent
             $<%= modelName.toLowerCase() %>Record = new <%= pluginHandle %>_<%= modelName %>Record();
         }
 
-        $<%= modelName.toLowerCase() %>Record-><%= sectionName.toLowerCase() %>Id = $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase()) %>Id;
+        $<%= modelName.toLowerCase() %>Record-><%= sectionName.toLowerCase() %>Id = $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase() %>Id;
         $<%= modelName.toLowerCase() %>Record->startDate  = $<%= modelName.toLowerCase() %>->startDate;
         $<%= modelName.toLowerCase() %>Record->endDate    = $<%= modelName.toLowerCase() %>->endDate;
 
