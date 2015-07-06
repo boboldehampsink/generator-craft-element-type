@@ -118,7 +118,7 @@ class <%= pluginHandle %>Controller extends BaseController
             $<%= modelName.toLowerCase() %> = new <%= pluginHandle %>_<%= modelName %>Model();
         }
 
-        // Set the event attributes, defaulting to the existing values for whatever is missing from the post data
+        // Set the <%= modelName.toLowerCase() %> attributes, defaulting to the existing values for whatever is missing from the post data
         $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase() %>Id = craft()->request->getPost('<%= sectionName.toLowerCase() %>Id', $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase() %>Id);
         $<%= modelName.toLowerCase() %>->startDate  = (($startDate = craft()->request->getPost('startDate')) ? DateTime::createFromString($startDate, craft()->timezone) : null);
         $<%= modelName.toLowerCase() %>->endDate    = (($endDate   = craft()->request->getPost('endDate'))   ? DateTime::createFromString($endDate,   craft()->timezone) : null);
@@ -132,7 +132,7 @@ class <%= pluginHandle %>Controller extends BaseController
         } else {
             craft()->userSession->setError(Craft::t('Couldn’t save <%= modelName.toLowerCase() %>.'));
 
-            // Send the event back to the template
+            // Send the <%= modelName.toLowerCase() %> back to the template
             craft()->urlManager->setRouteVariables(array(
                 '<%= modelName.toLowerCase() %>' => $<%= modelName.toLowerCase() %>,
             ));
