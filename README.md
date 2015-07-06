@@ -21,17 +21,22 @@ yo craft-element-type
 ```
 
 ## Changelog
-####1.0.3
+##### 1.0.4
+- Fixed wrong twig variable names
+- Fixed a wrong page title
+- Fixed some comments
+
+##### 1.0.3
 - Fixed section relation typo
 - Improved element index tab texts
 
-####1.0.2
+##### 1.0.2
 - Fixed record table names
 
-####1.0.1
+##### 1.0.1
 - Better handling of camelcase plugin names
 
-####1.0.0
+##### 1.0.0
 - Initial release
 
 ## License
