@@ -2,7 +2,7 @@
 {% set title = "Calendars"|t %}
 
 {% set tabs = {
-	<%= pluginHandle.toLowerCase() %>:    { label: "<%= pluginName %>"|t, url: url('<%= pluginHandle.toLowerCase() %>') },
+	<%= modelsName.toLowerCase() %>:    { label: "<%= modelsName %>"|t, url: url('<%= pluginHandle.toLowerCase() %>') },
 	<%= sectionsName.toLowerCase() %>: { label: "<%= sectionsName %>"|t, url: url('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>') }
 } %}
 
