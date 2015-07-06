@@ -21,6 +21,9 @@ yo craft-element-type
 ```
 
 ## Changelog
+##### 1.0.5
+- Fixed some variables not generating output
+
 ##### 1.0.4
 - Fixed wrong twig variable names
 - Fixed a wrong page title
