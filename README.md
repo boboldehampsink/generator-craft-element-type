@@ -20,8 +20,18 @@ Finally, initiate the generator:
 yo craft-element-type
 ```
 
+## Changelog
+####1.0.2
+- Fixed record table names
+
+####1.0.1
+- Better handling of camelcase plugin names
+
+####1.0.0
+- Initial release
+
 ## License
-MIT
+[MIT](LICENSE)
 
 ## Credits
 Inspired by Tim Kelty's [generator-craft-plugin](https://github.com/timkelty/generator-craft-plugin)
