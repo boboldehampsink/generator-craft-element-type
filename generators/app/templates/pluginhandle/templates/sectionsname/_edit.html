@@ -4,18 +4,18 @@
 
 {% block content %}
 	<form method="post" accept-charset="UTF-8" data-saveshortcut="1">
-		<input type="hidden" name="action" value="events/calendars/saveCalendar">
-		<input type="hidden" name="redirect" value="events/calendars">
-		{% if calendar.id %}<input type="hidden" name="calendarId" value="{{ calendar.id }}">{% endif %}
+		<input type="hidden" name="action" value="<%= pluginHandleLower %>/<%= sectionsName.toLowerCase() %>/save<%= sectionName %>">
+		<input type="hidden" name="redirect" value="<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>">
+		{% if <%= sectionName.toLowerCase() %>.id %}<input type="hidden" name="<%= sectionName.toLowerCase() %>Id" value="{{ <%= sectionName.toLowerCase() %>.id }}">{% endif %}
 
 		{{ forms.textField({
 			first: true,
 			label: "Name"|t,
-			instructions: "What this calendar will be called in the CP."|t,
+			instructions: "What this <%= sectionName.toLowerCase() %> will be called in the CP."|t,
 			id: 'name',
 			name: 'name',
-			value: calendar.name,
-			errors: calendar.getErrors('name'),
+			value: <%= sectionName.toLowerCase() %>.name,
+			errors: <%= sectionName.toLowerCase() %>.getErrors('name'),
 			autofocus: true,
 			required: true,
 			translatable: true
@@ -23,19 +23,19 @@
 
 		{{ forms.textField({
 			label: "Handle"|t,
-			instructions: "How you’ll refer to this calendar in the templates."|t,
+			instructions: "How you’ll refer to this <%= sectionName.toLowerCase() %> in the templates."|t,
 			id: 'handle',
 			class: 'code',
 			name: 'handle',
-			value: calendar.handle,
-			errors: calendar.getErrors('handle'),
+			value: <%= sectionName.toLowerCase() %>.handle,
+			errors: <%= sectionName.toLowerCase() %>.getErrors('handle'),
 			required: true
 		}) }}
 
 		<hr>
 
 		{% include "_includes/fieldlayoutdesigner" with {
-			fieldLayout: calendar.getFieldLayout()
+			fieldLayout: <%= sectionName.toLowerCase() %>.getFieldLayout()
 		} only %}
 
 		<hr>
@@ -48,6 +48,6 @@
 
 
 {% set js %}
-	{% if not calendar.handle %}new Craft.HandleGenerator('#name', '#handle');{% endif %}
+	{% if not <%= sectionName.toLowerCase() %>.handle %}new Craft.HandleGenerator('#name', '#handle');{% endif %}
 {% endset %}
 {% includeJs js %}

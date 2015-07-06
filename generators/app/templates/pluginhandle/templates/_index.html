@@ -1,27 +1,27 @@
 {% extends "_layouts/elementindex" %}
-{% set title = "Events"|t %}
-{% set elementType = 'Events_Event' %}
+{% set title = "<%= pluginName %>"|t %}
+{% set elementType = '<%= pluginHandle %>_<%= modelName %>' %}
 
 {% set tabs = {
-	events:    { label: "Events"|t, url: url('events') },
-	calendars: { label: "Calendars"|t, url: url('events/calendars') }
+	<%= pluginHandle.toLowerCase() %>: { label: "<%= pluginName %>"|t, url: url('<%= pluginHandle.toLowerCase() %>') },
+	<%= sectionsName.toLowerCase() %>: { label: "<%= sectionsName %>"|t, url: url('<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>') }
 } %}
 
 
 {% block sidebar %}
-	{% if calendars|length %}
+	{% if <%= sectionsName.toLowerCase() %>|length %}
 		<div class="buttons">
-			{% if calendars|length > 1 %}
-				<div class="btn submit menubtn add icon">{{ "New Event"|t }}</div>
+			{% if <%= sectionsName.toLowerCase() %>|length > 1 %}
+				<div class="btn submit menubtn add icon">{{ "New <%= modelName %>"|t }}</div>
 				<div class="menu">
 					<ul>
-						{% for calendar in calendars %}
-							<li><a href="{{ url('events/'~calendar.handle~'/new') }}">{{ calendar.name|t }}</a></li>
+						{% for <%= sectionName.toLowerCase() %> in <%= sectionsName.toLowerCase() %> %}
+							<li><a href="{{ url('<%= pluginHandle.toLowerCase() %>/'~<%= sectionName.toLowerCase() %>.handle~'/new') }}">{{ <%= sectionName.toLowerCase() %>.name|t }}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
 			{% else %}
-				<a class="btn submit add icon" href="{{ url('events/'~calendars[0].handle~'/new') }}">{{ "New Event"|t }}</a>
+				<a class="btn submit add icon" href="{{ url('<%= pluginHandle.toLowerCase() %>/'~<%= sectionsName.toLowerCase() %>[0].handle~'/new') }}">{{ "New <%= modelName %>"|t }}</a>
 			{% endif %}
 		</div>
 	{% endif %}
