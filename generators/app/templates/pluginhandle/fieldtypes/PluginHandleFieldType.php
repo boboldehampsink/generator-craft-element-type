@@ -3,7 +3,7 @@
 namespace Craft;
 
 /**
- * <%= pluginName %> - <%= modelName %> Element Type.
+ * <%= pluginName %> - <%= modelName %> Field Type.
  *
  * @author    <%= developerName %>
  * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>

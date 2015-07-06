@@ -19,7 +19,7 @@ class <%= pluginHandle %>Controller extends BaseController
      */
     public function action<%= modelName %>Index()
     {
-        $variables['calendars'] = craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>();
+        $variables['<%= sectionsName.toLowerCase() %>'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>();
 
         $this->renderTemplate('<%= pluginHandle.toLowerCase() %>/_index', $variables);
     }
@@ -34,9 +34,9 @@ class <%= pluginHandle %>Controller extends BaseController
     public function actionEdit<%= modelName %>(array $variables = array())
     {
         if (!empty($variables['<%= sectionName.toLowerCase() %>Handle'])) {
-            $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ByHandle($variables['<%= sectionName.toLowerCase() %>Handle']);
+            $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ByHandle($variables['<%= sectionName.toLowerCase() %>Handle']);
         } elseif (!empty($variables['<%= sectionName.toLowerCase() %>Id'])) {
-            $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ById($variables['<%= sectionName.toLowerCase() %>Id']);
+            $variables['<%= sectionName.toLowerCase() %>'] = craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->get<%= sectionName %>ById($variables['<%= sectionName.toLowerCase() %>Id']);
         }
 
         if (empty($variables['<%= sectionName.toLowerCase() %>'])) {
@@ -46,7 +46,7 @@ class <%= pluginHandle %>Controller extends BaseController
         // Now let's set up the actual <%= modelName.toLowerCase() %>
         if (empty($variables['<%= modelName.toLowerCase() %>'])) {
             if (!empty($variables['<%= modelName.toLowerCase() %>Id'])) {
-                $variables['<%= modelName.toLowerCase() %>'] = craft()-><%= pluginHandle.toLowerCase() %>->get<%= modelName %>ById($variables['<%= modelName.toLowerCase() %>Id']);
+                $variables['<%= modelName.toLowerCase() %>'] = craft()-><%= pluginHandleLower %>->get<%= modelName %>ById($variables['<%= modelName.toLowerCase() %>Id']);
 
                 if (!$variables['<%= modelName.toLowerCase() %>']) {
                     throw new HttpException(404);
@@ -109,7 +109,7 @@ class <%= pluginHandle %>Controller extends BaseController
         $<%= modelName.toLowerCase() %>Id = craft()->request->getPost('<%= modelName.toLowerCase() %>Id');
 
         if ($<%= modelName.toLowerCase() %>Id) {
-            $<%= modelName.toLowerCase() %> = craft()-><%= pluginHandle.toLowerCase() %>->get<%= modelName %>ById($<%= modelName.toLowerCase() %>Id);
+            $<%= modelName.toLowerCase() %> = craft()-><%= pluginHandleLower %>->get<%= modelName %>ById($<%= modelName.toLowerCase() %>Id);
 
             if (!$<%= modelName.toLowerCase() %>) {
                 throw new Exception(Craft::t('No <%= modelName.toLowerCase() %> exists with the ID “{id}”', array('id' => $<%= modelName.toLowerCase() %>Id)));
@@ -126,7 +126,7 @@ class <%= pluginHandle %>Controller extends BaseController
         $<%= modelName.toLowerCase() %>->getContent()->title = craft()->request->getPost('title', $<%= modelName.toLowerCase() %>->title);
         $<%= modelName.toLowerCase() %>->setContentFromPost('fields');
 
-        if (craft()->events->saveEvent($<%= modelName.toLowerCase() %>)) {
+        if (craft()-><%= pluginHandleLower %>->save<%= modelName %>($<%= modelName.toLowerCase() %>)) {
             craft()->userSession->setNotice(Craft::t('<%= modelName %> saved.'));
             $this->redirectToPostedUrl($<%= modelName.toLowerCase() %>);
         } else {

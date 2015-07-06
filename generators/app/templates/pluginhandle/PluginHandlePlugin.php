@@ -72,12 +72,12 @@ class <%= pluginHandle %>Plugin extends BasePlugin
     public function registerCpRoutes()
     {
         return array(
-            '<%= modelsName.toLowerCase() %>/<%= sectionsName.toLowerCase() %>' => array('action' => '<%= modelsName.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/<%= sectionName.toLowerCase() %>Index'),
-            '<%= modelsName.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/new' => array('action' => '<%= modelsName.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/edit<%= sectionName %>'),
-            '<%= modelsName.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/(?P<<%= sectionName.toLowerCase() %>Id>\d+)' => array('action' => '<%= modelsName.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/edit<%= sectionName %>'),
-            '<%= modelsName.toLowerCase() %>' => array('action' => '<%= modelsName.toLowerCase() %>/<%= modelName.toLowerCase() %>Index'),
-            '<%= modelsName.toLowerCase() %>/(?P<<%= sectionName.toLowerCase() %>Handle>{handle})/new' => array('action' => '<%= modelsName.toLowerCase() %>/edit<%= modelName %>'),
-            '<%= modelsName.toLowerCase() %>/(?P<<%= sectionName.toLowerCase() %>Handle>{handle})/(?P<<%= modelName.toLowerCase() %>Id>\d+)' => array('action' => '<%= modelsName.toLowerCase() %>/edit<%= modelName %>'),
+            '<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>' => array('action' => '<%= pluginHandleLower %>/<%= sectionsName.toLowerCase() %>/<%= sectionName.toLowerCase() %>Index'),
+            '<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/new' => array('action' => '<%= pluginHandleLower %>/<%= sectionsName.toLowerCase() %>/edit<%= sectionName %>'),
+            '<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>/(?P<<%= sectionName.toLowerCase() %>Id>\d+)' => array('action' => '<%= pluginHandleLower %>/<%= sectionsName.toLowerCase() %>/edit<%= sectionName %>'),
+            '<%= pluginHandle.toLowerCase() %>' => array('action' => '<%= pluginHandleLower %>/<%= modelName.toLowerCase() %>Index'),
+            '<%= pluginHandle.toLowerCase() %>/(?P<<%= sectionName.toLowerCase() %>Handle>{handle})/new' => array('action' => '<%= pluginHandleLower %>/edit<%= modelName %>'),
+            '<%= pluginHandle.toLowerCase() %>/(?P<<%= sectionName.toLowerCase() %>Handle>{handle})/(?P<<%= modelName.toLowerCase() %>Id>\d+)' => array('action' => '<%= pluginHandleLower %>/edit<%= modelName %>'),
         );
     }
 }

@@ -59,7 +59,7 @@ class <%= pluginHandle %>_<%= modelName %>ElementType extends BaseElementType
             ),
         );
 
-        foreach (craft()-><%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>() as $<%= sectionName.toLowerCase() %>) {
+        foreach (craft()-><%= pluginHandleLower %>_<%= sectionsName.toLowerCase() %>->getAll<%= sectionsName %>() as $<%= sectionName.toLowerCase() %>) {
             $key = '<%= sectionName.toLowerCase() %>:'.$<%= sectionName.toLowerCase() %>->id;
 
             $sources[$key] = array(

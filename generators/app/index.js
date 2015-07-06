@@ -89,9 +89,11 @@ module.exports = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function (props) {
-      this.props = props;
-      // To access props later use this.props.someOption;
 
+      // Extend default props
+      props.pluginHandleLower = _.camelize(props.pluginName.replace(/ /g, '-'), true);
+
+      this.props = props;
       done();
     }.bind(this));
   },
