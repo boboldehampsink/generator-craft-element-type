@@ -3,74 +3,81 @@
 namespace Craft;
 
 /**
- * Events service.
+ * <%= pluginName %> Service.
+ *
+ * @author    <%= developerName %>
+ * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>
+ * @license   <%= license %>
+ *
+ * @link      <%= developerUrl %>
+ * @since     <%= pluginVersion %>
  */
-class EventsService extends BaseApplicationComponent
+class <%= pluginHandle %>Service extends BaseApplicationComponent
 {
     /**
-     * Returns an event by its ID.
+     * Returns an <%= modelName.toLowerCase() %> by its ID.
      *
-     * @param int $eventId
+     * @param int $<%= modelName.toLowerCase() %>Id
      *
-     * @return Events_EventModel|null
+     * @return <%= pluginHandle %>_<%= modelName %>Model|null
      */
-    public function getEventById($eventId)
+    public function get<%= modelName %>ById($<%= modelName.toLowerCase() %>Id)
     {
-        return craft()->elements->getElementById($eventId, 'Events_Event');
+        return craft()->elements->getElementById($<%= modelName.toLowerCase() %>Id, '<%= pluginHandle %>_<% modelName %>');
     }
 
     /**
-     * Saves an event.
+     * Saves an <%= modelName.toLowerCase() %>.
      *
-     * @param Events_EventModel $event
+     * @param <%= pluginHandle %>_<%= modelName %>Model $<%= modelName.toLowerCase() %>
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return bool
      */
-    public function saveEvent(Events_EventModel $event)
+    public function save<%= modelName %>(<%= pluginHandle %>_<%= modelName %>Model $<%= modelName.toLowerCase() %>)
     {
-        $isNewEvent = !$event->id;
+        $isNew<%= modelName %> = !$<%= modelName.toLowerCase() %>->id;
 
-        // Event data
-        if (!$isNewEvent) {
-            $eventRecord = Events_EventRecord::model()->findById($event->id);
+        // <%= modelName%> data
+        if (!$isNew<%= modelName %>) {
+            $<%= modelName.toLowerCase() %>Record = <%= pluginHandel %>_<%= modelName %>Record::model()->findById($<%= modelName.toLowerCase() %>->id);
 
-            if (!$eventRecord) {
-                throw new Exception(Craft::t('No event exists with the ID “{id}”', array('id' => $event->id)));
+            if (!$<%= modelName.toLowerCase() %>Record) {
+                throw new Exception(Craft::t('No <%= modelName.toLowerCase() %> exists with the ID “{id}”', array('id' => $<%= modelName.toLowerCase() %>->id)));
             }
         } else {
-            $eventRecord = new Events_EventRecord();
+            $<%= modelName.toLowerCase() %>Record = new <%= pluginHandle %>_<%= modelName %>Record();
         }
 
-        $eventRecord->calendarId = $event->calendarId;
-        $eventRecord->startDate  = $event->startDate;
-        $eventRecord->endDate    = $event->endDate;
+        $<%= modelName.toLowerCase() %>Record-><%= sectionName.toLowerCase() %>Id = $<%= modelName.toLowerCase() %>-><%= sectionName.toLowerCase()) %>Id;
+        $<%= modelName.toLowerCase() %>Record->startDate  = $<%= modelName.toLowerCase() %>->startDate;
+        $<%= modelName.toLowerCase() %>Record->endDate    = $<%= modelName.toLowerCase() %>->endDate;
 
-        $eventRecord->validate();
-        $event->addErrors($eventRecord->getErrors());
+        $<%= modelName.toLowerCase() %>Record->validate();
+        $<%= modelName.toLowerCase() %>->addErrors($<%= modelName.toLowerCase() %>Record->getErrors());
 
-        if (!$event->hasErrors()) {
+        if (!$<%= modelName.toLowerCase() %>->hasErrors()) {
             $transaction = craft()->db->getCurrentTransaction() === null ? craft()->db->beginTransaction() : null;
             try {
-                // Fire an 'onBeforeSaveEvent' event
-                $this->onBeforeSaveEvent(new Event($this, array(
-                    'event'      => $event,
-                    'isNewEvent' => $isNewEvent,
+                // Fire an 'onBeforeSave<%= modelName %>' event
+                $this->onBeforeSave<%= modelName %>(new Event($this, array(
+                    '<%= modelName.toLowerCase() %>'      => $<%= modelName.toLowerCase() %>,
+                    'isNew<%= modelName %>' => $isNew<%= modelName %>,
                 )));
 
-                if (craft()->elements->saveElement($event)) {
+                if (craft()->elements->saveElement($<%= modelName.toLowerCase() %>)) {
                     // Now that we have an element ID, save it on the other stuff
-                    if ($isNewEvent) {
-                        $eventRecord->id = $event->id;
+                    if ($isNew<%= modelName %>) {
+                        $<%= modelName %>Record->id = $<%= modelName.toLowerCase() %>->id;
                     }
 
-                    $eventRecord->save(false);
+                    $<%= modelName.toLowerCase() %>Record->save(false);
 
-                    // Fire an 'onSaveEvent' event
-                    $this->onSaveEvent(new Event($this, array(
-                        'event'      => $event,
-                        'isNewEvent' => $isNewEvent,
+                    // Fire an 'onSave<%= modelName %>' event
+                    $this->onSave<%= modelName %>(new Event($this, array(
+                        '<%= modelName.toLowerCase() %>'      => $<%= modelName.toLowerCase() %>,
+                        'isNew<%= modelName %>' => $isNew<%= modelName %>,
                     )));
 
                     if ($transaction !== null) {
@@ -94,22 +101,22 @@ class EventsService extends BaseApplicationComponent
     // Events
 
     /**
-     * Fires an 'onBeforeSaveEvent' event.
+     * Fires an 'onBeforeSave<%= modelName %>' event.
      *
-     * @param Event $event
+     * @param Event $<%= modelName.toLowerCase() %>
      */
-    public function onBeforeSaveEvent(Event $event)
+    public function onBeforeSave<%= modelName %>(Event $<%= modelName.toLowerCase() %>)
     {
-        $this->raiseEvent('onBeforeSaveEvent', $event);
+        $this->raiseEvent('onBeforeSave<%= modelName %>', $<%= modelName.toLowerCase() %>);
     }
 
     /**
-     * Fires an 'onSaveEvent' event.
+     * Fires an 'onSave<%= modelName %>' event.
      *
-     * @param Event $event
+     * @param Event $<%= modelName.toLowerCase() %>
      */
-    public function onSaveEvent(Event $event)
+    public function onSave<%= modelName %>(Event $<%= modelName.toLowerCase() %>)
     {
-        $this->raiseEvent('onSaveEvent', $event);
+        $this->raiseEvent('onSave<%= modelName %>', $<%= modelName.toLowerCase() %>);
     }
 }

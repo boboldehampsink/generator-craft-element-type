@@ -3,172 +3,179 @@
 namespace Craft;
 
 /**
- * Calendars service.
+ * <%= pluginName %> - <%= sectionName %> Service.
+ *
+ * @author    <%= developerName %>
+ * @copyright Copyright (c) <%= (new Date()).getFullYear() %>, <%= developerName %>
+ * @license   <%= license %>
+ *
+ * @link      <%= developerUrl %>
+ * @since     <%= pluginVersion %>
  */
-class Events_CalendarsService extends BaseApplicationComponent
+class <%= pluginHandle %>_<%= sectionsName %>Service extends BaseApplicationComponent
 {
-    private $_allCalendarIds;
-    private $_calendarsById;
-    private $_fetchedAllCalendars = false;
+    private $_all<%= sectionName %>Ids;
+    private $_<%= sectionsName.toLowerCase() %>ById;
+    private $_fetchedAll<%= sectionsName %> = false;
 
     /**
-     * Returns all of the calendar IDs.
+     * Returns all of the <%= sectionName.toLowerCase() %> IDs.
      *
      * @return array
      */
-    public function getAllCalendarIds()
+    public function getAll<%= sectionName %>Ids()
     {
-        if (!isset($this->_allCalendarIds)) {
-            if ($this->_fetchedAllCalendars) {
-                $this->_allCalendarIds = array_keys($this->_calendarsById);
+        if (!isset($this->_all<%= sectionName %>Ids)) {
+            if ($this->_fetchedAll<%= sectionsName %>) {
+                $this->_all<%= sectionName %>Ids = array_keys($this->_<%= sectionsName.toLowerCase() %>ById);
             } else {
-                $this->_allCalendarIds = craft()->db->createCommand()
+                $this->_all<%= sectionName %>Ids = craft()->db->createCommand()
                     ->select('id')
-                    ->from('events_calendars')
+                    ->from('<% modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>')
                     ->queryColumn();
             }
         }
 
-        return $this->_allCalendarIds;
+        return $this->_all<%= sectionName %>Ids;
     }
 
     /**
-     * Returns all calendars.
+     * Returns all <%= sectionsName.toLowerCase() %>.
      *
      * @param string|null $indexBy
      *
      * @return array
      */
-    public function getAllCalendars($indexBy = null)
+    public function getAll<%= sectionsName %>($indexBy = null)
     {
-        if (!$this->_fetchedAllCalendars) {
-            $calendarRecords = Events_CalendarRecord::model()->ordered()->findAll();
-            $this->_calendarsById = Events_CalendarModel::populateModels($calendarRecords, 'id');
-            $this->_fetchedAllCalendars = true;
+        if (!$this->_fetchedAll<%= sectionsName %>) {
+            $<%= sectionName.toLowerCase() %>Records = <%= pluginHandle %>_<%= sectionName %>Record::model()->ordered()->findAll();
+            $this->_<%= sectionsName.toLowerCase() %>ById = <%= pluginHandle %>_<%= sectionName %>Model::populateModels($<%= sectionName.toLowerCase() %>Records, 'id');
+            $this->_fetchedAll<%= sectionsName %> = true;
         }
 
         if ($indexBy == 'id') {
-            return $this->_calendarsById;
+            return $this->_<%= sectionsName.toLowerCase() %>ById;
         } elseif (!$indexBy) {
-            return array_values($this->_calendarsById);
+            return array_values($this->_<%= sectionsName.toLowerCase() %>ById);
         } else {
-            $calendars = array();
+            $<%= sectionsName.toLowerCase() %> = array();
 
-            foreach ($this->_calendarsById as $calendar) {
-                $calendars[$calendar->$indexBy] = $calendar;
+            foreach ($this->_<%= sectionsName.toLowerCase() %>ById as $<%= sectionName.toLowerCase() %>) {
+                $<%= sectionsName.toLowerCase() %>[$<%= sectionName.toLowerCase() %>->$indexBy] = $<%= sectionName.toLowerCase() %>;
             }
 
-            return $calendars;
+            return $<%= sectionsName.toLowerCase() %>;
         }
     }
 
     /**
-     * Gets the total number of calendars.
+     * Gets the total number of <%= sectionsName.toLowerCase() %>.
      *
      * @return int
      */
-    public function getTotalCalendars()
+    public function getTotal<%= sectionsName %>()
     {
-        return count($this->getAllCalendarIds());
+        return count($this->getAll<%= sectionsName %>Ids());
     }
 
     /**
-     * Returns a calendar by its ID.
+     * Returns a <%= sectionName.toLowerCase() %> by its ID.
      *
-     * @param $calendarId
+     * @param $<%= sectionName.toLowerCase() %>Id
      *
-     * @return Events_CalendarModel|null
+     * @return <%= pluginHandel %>_<%= sectionName %>Model|null
      */
-    public function getCalendarById($calendarId)
+    public function get<%= sectionName %>ById($<%= sectionName.toLowerCase() %>Id)
     {
-        if (!isset($this->_calendarsById) || !array_key_exists($calendarId, $this->_calendarsById)) {
-            $calendarRecord = Events_CalendarRecord::model()->findById($calendarId);
+        if (!isset($this->_<%= sectionsName.toLowerCase() %>ById) || !array_key_exists($<%= sectionName.toLowerCase() %>Id, $this->_<%= sectionsName.toLowerCase() %>ById)) {
+            $<%= sectionName.toLowerCase() %>Record = <%= pluginHandle %>_<%= sectionName %>Record::model()->findById($<%= sectionName.toLowerCase() %>Id);
 
-            if ($calendarRecord) {
-                $this->_calendarsById[$calendarId] = Events_CalendarModel::populateModel($calendarRecord);
+            if ($<%= sectionName.toLowerCase() %>Record) {
+                $this->_<%= sectionsName.toLowerCase() %>ById[$<%= sectionName.toLowerCase() %>Id] = <%= pluginHandle %>_<%= sectionName %>Model::populateModel($<%= sectionName.toLowerCase() %>Record);
             } else {
-                $this->_calendarsById[$calendarId] = null;
+                $this->_<%= sectionsName.toLowerCase() %>ById[$<%= sectionName.toLowerCase() %>Id] = null;
             }
         }
 
-        return $this->_calendarsById[$calendarId];
+        return $this->_<%= sectionsName.toLowerCase() %>ById[$<%= sectionName.toLowerCase() %>Id];
     }
 
     /**
-     * Gets a calendar by its handle.
+     * Gets a <%= sectionName.toLowerCase() %> by its handle.
      *
-     * @param string $calendarHandle
+     * @param string $<%= sectionName.toLowerCase() %>Handle
      *
-     * @return Events_CalendarModel|null
+     * @return <%= pluginHandle %>_<%= sectionName %>Model|null
      */
-    public function getCalendarByHandle($calendarHandle)
+    public function get<%= sectionName %>ByHandle($<%= sectionName.toLowerCase() %>Handle)
     {
-        $calendarRecord = Events_CalendarRecord::model()->findByAttributes(array(
-            'handle' => $calendarHandle,
+        $<%= sectionName.toLowerCase() %>Record = <%= pluginHandle %>_<%= sectionName %>Record::model()->findByAttributes(array(
+            'handle' => $<%= sectionName.toLowerCase() %>Handle,
         ));
 
-        if ($calendarRecord) {
-            return Events_CalendarModel::populateModel($calendarRecord);
+        if ($<%= sectionName.toLowerCase() %>Record) {
+            return <%= pluginHandle %>_<%= sectionName %>Model::populateModel($<%= sectionName.toLowerCase() %>Record);
         }
     }
 
     /**
-     * Saves a calendar.
+     * Saves a <%= sectionName.toLowerCase() %>.
      *
-     * @param Events_CalendarModel $calendar
+     * @param <%= pluginHandle %>_<%= sectionName %>Model $<%= sectionName.toLowerCase() %>
      *
      * @throws \Exception
      *
      * @return bool
      */
-    public function saveCalendar(Events_CalendarModel $calendar)
+    public function save<%= sectionName %>(<%= pluginHandle %>_<%= sectionName %>Model $<%= sectionName.toLowerCase() %>)
     {
-        if ($calendar->id) {
-            $calendarRecord = Events_CalendarRecord::model()->findById($calendar->id);
+        if ($<%= sectionName.toLowerCase() %>->id) {
+            $<%= sectionName.toLowerCase() %>Record = <%= pluginHandle %>_<%= sectionName %>Record::model()->findById($<%= sectionName.toLowerCase() %>->id);
 
-            if (!$calendarRecord) {
-                throw new Exception(Craft::t('No calendar exists with the ID “{id}”', array('id' => $calendar->id)));
+            if (!$<%= sectionName.toLowerCase() %>Record) {
+                throw new Exception(Craft::t('No <%= sectionName.toLowerCase() %> exists with the ID “{id}”', array('id' => $<%= sectionName.toLowerCase() %>->id)));
             }
 
-            $oldCalendar = Events_CalendarModel::populateModel($calendarRecord);
-            $isNewCalendar = false;
+            $old<%= sectionName %> = <%= pluginHandle %>_<%= sectionName %>Model::populateModel($<%= sectionName.toLowerCase() %>Record);
+            $isNew<%= sectionName %> = false;
         } else {
-            $calendarRecord = new Events_CalendarRecord();
-            $isNewCalendar = true;
+            $<%= sectionName.toLowerCase() %>Record = new <%= pluginHandle %>_<%= sectionName %>Record();
+            $isNew<%= sectionName %> = true;
         }
 
-        $calendarRecord->name       = $calendar->name;
-        $calendarRecord->handle     = $calendar->handle;
+        $<%= sectionName.toLowerCase() %>Record->name       = $<%= sectionName.toLowerCase() %>->name;
+        $<%= sectionName.toLowerCase() %>Record->handle     = $<%= sectionName.toLowerCase() %>->handle;
 
-        $calendarRecord->validate();
-        $calendar->addErrors($calendarRecord->getErrors());
+        $<%= sectionName.toLowerCase() %>Record->validate();
+        $<%= sectionName.toLowerCase() %>->addErrors($<%= sectionName.toLowerCase() %>Record->getErrors());
 
-        if (!$calendar->hasErrors()) {
+        if (!$<%= sectionName.toLowerCase() %>->hasErrors()) {
             $transaction = craft()->db->getCurrentTransaction() === null ? craft()->db->beginTransaction() : null;
             try {
-                if (!$isNewCalendar && $oldCalendar->fieldLayoutId) {
+                if (!$isNew<%= sectionName %> && $old<%= sectionName %>->fieldLayoutId) {
                     // Drop the old field layout
-                    craft()->fields->deleteLayoutById($oldCalendar->fieldLayoutId);
+                    craft()->fields->deleteLayoutById($old<%= sectionName %>->fieldLayoutId);
                 }
 
                 // Save the new one
-                $fieldLayout = $calendar->getFieldLayout();
+                $fieldLayout = $<%= sectionName.toLowerCase() %>->getFieldLayout();
                 craft()->fields->saveLayout($fieldLayout);
 
-                // Update the calendar record/model with the new layout ID
-                $calendar->fieldLayoutId = $fieldLayout->id;
-                $calendarRecord->fieldLayoutId = $fieldLayout->id;
+                // Update the <%= sectionName.toLowerCase() %> record/model with the new layout ID
+                $<%= sectionName.toLowerCase() %>->fieldLayoutId = $fieldLayout->id;
+                $<%= sectionName.toLowerCase() %>Record->fieldLayoutId = $fieldLayout->id;
 
                 // Save it!
-                $calendarRecord->save(false);
+                $<%= sectionName.toLowerCase() %>Record->save(false);
 
-                // Now that we have a calendar ID, save it on the model
-                if (!$calendar->id) {
-                    $calendar->id = $calendarRecord->id;
+                // Now that we have a <%= sectionName.toLowerCase() %> ID, save it on the model
+                if (!$<%= sectionName.toLowerCase() %>->id) {
+                    $<%= sectionName.toLowerCase() %>->id = $<%= sectionName.toLowerCase() %>Record->id;
                 }
 
-                // Might as well update our cache of the calendar while we have it.
-                $this->_calendarsById[$calendar->id] = $calendar;
+                // Might as well update our cache of the <%= sectionName.toLowerCase() %> while we have it.
+                $this->_<%= sectionsName.toLowerCase() %>ById[$<%= sectionName.toLowerCase() %>->id] = $<%= sectionName.toLowerCase() %>;
 
                 if ($transaction !== null) {
                     $transaction->commit();
@@ -188,17 +195,17 @@ class Events_CalendarsService extends BaseApplicationComponent
     }
 
     /**
-     * Deletes a calendar by its ID.
+     * Deletes a <%= sectionName.toLowerCase() %> by its ID.
      *
-     * @param int $calendarId
+     * @param int $<%= sectionName.toLowerCase() %>Id
      *
      * @throws \Exception
      *
      * @return bool
      */
-    public function deleteCalendarById($calendarId)
+    public function delete<%= sectionName %>ById($<%= sectionName.toLowerCase() %>Id)
     {
-        if (!$calendarId) {
+        if (!$<%= sectionName.toLowerCase() %>Id) {
             return false;
         }
 
@@ -207,24 +214,24 @@ class Events_CalendarsService extends BaseApplicationComponent
             // Delete the field layout
             $fieldLayoutId = craft()->db->createCommand()
                 ->select('fieldLayoutId')
-                ->from('events_calendars')
-                ->where(array('id' => $calendarId))
+                ->from('<% modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>')
+                ->where(array('id' => $<%= sectionName.toLowerCase() %>Id))
                 ->queryScalar();
 
             if ($fieldLayoutId) {
                 craft()->fields->deleteLayoutById($fieldLayoutId);
             }
 
-            // Grab the event ids so we can clean the elements table.
-            $eventIds = craft()->db->createCommand()
+            // Grab the <%= modelName.toLowerCase() %> ids so we can clean the elements table.
+            $<%= modelName.toLowerCase() %>Ids = craft()->db->createCommand()
                 ->select('id')
-                ->from('events')
-                ->where(array('calendarId' => $calendarId))
+                ->from('<%= modelsName.toLowerCase() %>')
+                ->where(array('<%= sectionName.toLowerCase() %>Id' => $<%= sectionName.toLowerCase() %>Id))
                 ->queryColumn();
 
-            craft()->elements->deleteElementById($eventIds);
+            craft()->elements->deleteElementById($<%= modelName.toLowerCase() %>Ids);
 
-            $affectedRows = craft()->db->createCommand()->delete('events_calendars', array('id' => $calendarId));
+            $affectedRows = craft()->db->createCommand()->delete('<%= modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>', array('id' => $<%= sectionName.toLowerCase() %>Id));
 
             if ($transaction !== null) {
                 $transaction->commit();
