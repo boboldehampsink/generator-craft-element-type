@@ -19,7 +19,7 @@ class <%= pluginHandle %>_<%= sectionName %>Record extends BaseRecord
      */
     public function getTableName()
     {
-        return '<%= modelsName.toLowerCase() %>_<%= sectionsName.toLowerCase() %>';
+        return '<%= pluginHandle.toLowerCase() %>_<%= sectionsName.toLowerCase() %>';
     }
 
     /**
