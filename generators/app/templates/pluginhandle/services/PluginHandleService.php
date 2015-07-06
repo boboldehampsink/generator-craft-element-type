@@ -69,7 +69,7 @@ class <%= pluginHandle %>Service extends BaseApplicationComponent
                 if (craft()->elements->saveElement($<%= modelName.toLowerCase() %>)) {
                     // Now that we have an element ID, save it on the other stuff
                     if ($isNew<%= modelName %>) {
-                        $<%= modelName %>Record->id = $<%= modelName.toLowerCase() %>->id;
+                        $<%= modelName.toLowerCase() %>Record->id = $<%= modelName.toLowerCase() %>->id;
                     }
 
                     $<%= modelName.toLowerCase() %>Record->save(false);
