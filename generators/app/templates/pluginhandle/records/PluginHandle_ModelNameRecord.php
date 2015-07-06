@@ -40,7 +40,7 @@ class <%= pluginHandle %>_<%= modelName %>Record extends BaseRecord
     {
         return array(
             'element'  => array(static::BELONGS_TO, 'ElementRecord', 'id', 'required' => true, 'onDelete' => static::CASCADE),
-            '<%= sectionsName.toLowerCase() %>' => array(static::BELONGS_TO, '<%= pluginHandle %>_<%= sectionName %>Record', 'required' => true, 'onDelete' => static::CASCADE),
+            '<%= sectionName.toLowerCase() %>' => array(static::BELONGS_TO, '<%= pluginHandle %>_<%= sectionName %>Record', 'required' => true, 'onDelete' => static::CASCADE),
         );
     }
 }
