@@ -22,11 +22,11 @@
     "element-type"
   ],
   "dependencies": {
+    "chalk": "^1.1.0",
+    "renamer": "^0.5.3",
+    "underscore.string": "^3.1.1",
     "yeoman-generator": "^0.19.0",
-    "chalk": "^1.0.0",
-    "underscore.string": "^3.0.3",
-    "yosay": "^1.0.2",
-    "renamer": "^0.5.3"
+    "yosay": "^1.0.2"
   },
   "devDependencies": {
     "mocha": "*"
