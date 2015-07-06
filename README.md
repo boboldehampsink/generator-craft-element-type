@@ -21,6 +21,10 @@ yo craft-element-type
 ```
 
 ## Changelog
+####1.0.3
+- Fixed section relation typo
+- Improved element index tab texts
+
 ####1.0.2
 - Fixed record table names
 
