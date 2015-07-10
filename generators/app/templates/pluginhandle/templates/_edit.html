@@ -42,6 +42,7 @@
 		<input type="hidden" name="<%= sectionName.toLowerCase() %>Id" value="{{ <%= sectionName.toLowerCase() %>.id }}">
 		{% if <%= modelName.toLowerCase() %>.id %}<input type="hidden" name="<%= modelName.toLowerCase() %>Id" value="{{ <%= modelName.toLowerCase() %>.id }}">{% endif %}
 		{% if craft.isLocalized() %}<input type="hidden" name="locale" value="{{ <%= modelName.toLowerCase() %>.locale }}">{% endif %}
+		{{ getCsrfInput() }}
 
 		{{ forms.textField({
 			label: "Title"|t,

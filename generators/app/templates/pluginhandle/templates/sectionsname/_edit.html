@@ -7,6 +7,7 @@
 		<input type="hidden" name="action" value="<%= pluginHandleLower %>/<%= sectionsName.toLowerCase() %>/save<%= sectionName %>">
 		<input type="hidden" name="redirect" value="<%= pluginHandle.toLowerCase() %>/<%= sectionsName.toLowerCase() %>">
 		{% if <%= sectionName.toLowerCase() %>.id %}<input type="hidden" name="<%= sectionName.toLowerCase() %>Id" value="{{ <%= sectionName.toLowerCase() %>.id }}">{% endif %}
+		{{ getCsrfInput() }}
 
 		{{ forms.textField({
 			first: true,
