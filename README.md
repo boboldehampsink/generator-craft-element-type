@@ -21,6 +21,9 @@ yo craft-element-type
 ```
 
 ## Changelog
+##### 1.0.7
+- Added CSRF support
+
 ##### 1.0.6
 - Fixed casing of a variable
 
